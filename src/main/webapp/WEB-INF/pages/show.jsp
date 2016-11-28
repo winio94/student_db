@@ -15,16 +15,16 @@
                 <td>Nazwisko</td>
                 <td>Uczelnia</td>
             </tr>
-            <c:forEach items="${studenci}" var="student">
+            <c:forEach items="${students}" var="student">
                 <tr>
                     <td>${student.imie}</td>
                     <td>${student.nazwisko}</td>
                     <td>${student.uczelnia}</td>
-                    <td><a href="/SSI_Spring/student/edytuj/${student.id}">EDYTUJ</a></td>
-                    <td><a href="/SSI_Spring/student/usun/${student.id}">USUŃ</a></td>
+                    <td><a href="/student/edit/${student.id}">EDYTUJ</a></td>
+                    <td><a href="/student/delete/${student.id}">USUŃ</a></td>
                 </tr>
             </c:forEach>
         </table>
-        <a href="/SSI_Spring/student/nowy">Dodaj nowego studenta</a>
+        <a href="/student/new/">Dodaj nowego studenta</a>
     </body>
 </html>
