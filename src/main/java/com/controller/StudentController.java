@@ -1,100 +1,93 @@
 package com.controller;
 
-import com.model.StudentForm;
+import com.model.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @RequestMapping("/student")
 @Controller
 public class StudentController {
-    Map<Integer, StudentForm> studentList = new HashMap<>();
-    static int id = 0;
+    private Map<Integer, Student> studentsMap = new HashMap<>();
+    private static int id = 0;
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView zapisz(StudentForm form, BindingResult errors, HttpServletRequest request, HttpServletResponse response) {
+    @PostMapping
+    public ModelAndView save(Student student) {
 
-        if (form.getId() == -1) {
+        if (student.getId() == -1) {
             id++;
-            form.setId(id);
-            studentList.put(id, form);
+            student.setId(id);
+            studentsMap.put(id, student);
         } else {
-            studentList.put(form.getId(), form);
+            studentsMap.put(student.getId(), student);
         }
 
-        Iterator iter = studentList.keySet().iterator();
-        List<StudentForm> newMap = new ArrayList<>();
+        Iterator iter = studentsMap.keySet().iterator();
+        List<Student> newMap = new ArrayList<>();
 
         while (iter.hasNext()) {
             Object key = iter.next();
             if (key != null) {
-                newMap.add(studentList.get(key));
+                newMap.add(studentsMap.get(key));
             }
         }
 
         ModelMap map = new ModelMap();
-        map.put("studenci", newMap);
+        map.put("students", newMap);
 
-        return new ModelAndView("pokaz", map);
+        return new ModelAndView("show", map);
     }
 
-    @RequestMapping(value = "/nowy", method = RequestMethod.GET)
-    public ModelAndView nowyStudent() {
-        StudentForm form = new StudentForm();
+    @GetMapping(value = "/new")
+    public ModelAndView createStudent() {
+        Student form = new Student();
         ModelMap map = new ModelMap();
         map.put("student", form);
         return new ModelAndView("/student", map);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String wyswietl(HttpServletRequest request) {
-        String widok = "";
+    @GetMapping
+    public String showStudents(HttpServletRequest request) {
+        Iterator iterator = studentsMap.keySet().iterator();
+        List<Student> newMap = new ArrayList<>();
 
-        Iterator iter = studentList.keySet().iterator();
-        List<StudentForm> newMap = new ArrayList<>();
-
-        while (iter.hasNext()) {
-            Object key = iter.next();
+        while (iterator.hasNext()) {
+            Object key = iterator.next();
             if (key != null) {
-                newMap.add(studentList.get(key));
+                newMap.add(studentsMap.get(key));
             }
         }
 
-        request.setAttribute("studenci", newMap);
-        widok = "pokaz";
-        return widok;
+        request.setAttribute("students", newMap);
+        return "show";
     }
 
-    @RequestMapping(value = "/edytuj/{id}")
-    public ModelAndView edytuj(@PathVariable String id) {
+    @RequestMapping(value = "/edit/{id}")
+    public ModelAndView editStudent(@PathVariable String id) {
         ModelMap map = new ModelMap();
-        map.put("student", studentList.get(Integer.parseInt(id)));
+        map.put("student", studentsMap.get(Integer.parseInt(id)));
 
         return new ModelAndView("student", map);
     }
 
-    @RequestMapping(value = "/usun/{id}")
-    public String usun(@PathVariable String id, HttpServletRequest request) {
-        studentList.remove(Integer.parseInt(id));
+    @RequestMapping(value = "/delete/{id}")
+    public String deleteStudent(@PathVariable String id, HttpServletRequest request) {
+        studentsMap.remove(Integer.parseInt(id));
 
-        Iterator iter = studentList.keySet().iterator();
-        List<StudentForm> newMap = new ArrayList<>();
+        Iterator iterator = studentsMap.keySet().iterator();
+        List<Student> newMap = new ArrayList<>();
 
-        while (iter.hasNext()) {
-            Object key = iter.next();
+        while (iterator.hasNext()) {
+            Object key = iterator.next();
             if (key != null) {
-                newMap.add(studentList.get(key));
+                newMap.add(studentsMap.get(key));
             }
         }
-        request.setAttribute("studenci", newMap);
-        return "pokaz";
+        request.setAttribute("students", newMap);
+        return "show";
     }
 }
