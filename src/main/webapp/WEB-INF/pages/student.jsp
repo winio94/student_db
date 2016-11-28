@@ -8,7 +8,7 @@
     </head>
 
     <body>
-        <form:form commandName="student" method="post" action="/SSI_Spring/student" >
+        <form:form commandName="student" method="post" action="/student" >
             <form:hidden path="id" id="id" />
             <table>
                 <tr>
