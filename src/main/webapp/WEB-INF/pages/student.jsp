@@ -13,15 +13,15 @@
             <table>
                 <tr>
                     <td><label>Imię</label></td>
-                    <td><form:input path="imie" id="imie"/></td>
+                    <td><form:input path="firstName" id="firstName"/></td>
                 </tr>
                 <tr>
                     <td><label>Nazwisko</label></td>
-                    <td><form:input path="nazwisko" id="nazwisko"/></td>
+                    <td><form:input path="lastName" id="lastName"/></td>
                 </tr>
                 <tr>
                     <td><label>Uczelnia</label></td>
-                    <td><form:input path="uczelnia" id="uczelnia"/></td>
+                    <td><form:input path="universityName" id="universityName"/></td>
                 </tr><tr>
                     <td><input type="submit" name="zapisz" value="Zapisz"/></td>
                 </tr>

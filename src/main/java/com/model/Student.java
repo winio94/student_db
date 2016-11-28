@@ -1,43 +1,43 @@
 package com.model;
 
 public class Student {
-    private String imie;
-    private String nazwisko;
-    private String uczelnia;
+    private String firstName;
+    private String lastName;
+    private String universityName;
     private int id = -1;
 
     public Student() {
     }
 
-    public Student(int id, String imie, String nazwisko, String uczelnia) {
-        this.imie = imie;
-        this.nazwisko = nazwisko;
-        this.uczelnia = uczelnia;
+    public Student(int id, String firstName, String lastName, String universityName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.universityName = universityName;
         this.id = id;
     }
 
-    public String getImie() {
-        return imie;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setImie(String imie) {
-        this.imie = imie;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getNazwisko() {
-        return nazwisko;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setNazwisko(String nazwisko) {
-        this.nazwisko = nazwisko;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getUczelnia() {
-        return uczelnia;
+    public String getUniversityName() {
+        return universityName;
     }
 
-    public void setUczelnia(String uczelnia) {
-        this.uczelnia = uczelnia;
+    public void setUniversityName(String universityName) {
+        this.universityName = universityName;
     }
 
     public int getId() {

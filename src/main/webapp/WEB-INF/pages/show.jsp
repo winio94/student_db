@@ -17,9 +17,9 @@
             </tr>
             <c:forEach items="${students}" var="student">
                 <tr>
-                    <td>${student.imie}</td>
-                    <td>${student.nazwisko}</td>
-                    <td>${student.uczelnia}</td>
+                    <td>${student.firstName}</td>
+                    <td>${student.lastName}</td>
+                    <td>${student.universityName}</td>
                     <td><a href="/student/edit/${student.id}">EDYTUJ</a></td>
                     <td><a href="/student/delete/${student.id}">USUŃ</a></td>
                 </tr>
