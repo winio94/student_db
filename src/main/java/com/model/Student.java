@@ -1,15 +1,15 @@
 package com.model;
 
-public class StudentForm {
+public class Student {
     private String imie;
     private String nazwisko;
     private String uczelnia;
     private int id = -1;
 
-    public StudentForm() {
+    public Student() {
     }
 
-    public StudentForm(int id, String imie, String nazwisko, String uczelnia) {
+    public Student(int id, String imie, String nazwisko, String uczelnia) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.uczelnia = uczelnia;
