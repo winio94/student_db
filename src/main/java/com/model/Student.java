@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Student {
@@ -14,10 +15,10 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @Size(min = 2, max = 20)
     private String firstName;
 
-    @NotEmpty
+    @Size(min = 2, max = 20)
     private String lastName;
 
     @NotEmpty

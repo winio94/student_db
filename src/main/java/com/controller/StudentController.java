@@ -4,6 +4,7 @@ import com.model.Student;
 import com.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/student")
@@ -22,7 +24,10 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping
-    public ModelAndView save(Student student) {
+    public ModelAndView save(@Valid Student student, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("/student", modelMapWithStudent(student));
+        }
         studentService.save(student);
         return new ModelAndView("show", modelMapWithAllStudents());
     }
