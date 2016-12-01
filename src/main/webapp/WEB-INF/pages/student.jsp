@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,22 +14,22 @@
     <form:hidden path="id" id="id"/>
     <table>
         <tr>
-            <td><label>Imię</label></td>
+            <td><label><spring:message code="student.firstname"/></label></td>
             <td><form:input path="firstName" id="firstName"/></td>
             <td><form:errors path="firstName" cssClass="error"></form:errors></td>
         </tr>
         <tr>
-            <td><label>Nazwisko</label></td>
+            <td><spring:message code="student.lastname"/></td>
             <td><form:input path="lastName" id="lastName"/></td>
             <td><form:errors path="lastName" cssClass="error"></form:errors></td>
         </tr>
         <tr>
-            <td><label>Uczelnia</label></td>
+            <td><spring:message code="student.university" /></td>
             <td><form:input path="universityName" id="universityName"/></td>
             <td><form:errors path="universityName" cssClass="error"></form:errors></td>
         </tr>
         <tr>
-            <td><input type="submit" name="zapisz" value="Zapisz"/></td>
+            <td><input type="submit" value="<spring:message code="savebutton"/>"/></td>
         </tr>
     </table>
 </form:form>
