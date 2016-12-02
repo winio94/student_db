@@ -2,10 +2,12 @@ package com.service;
 
 import com.model.Student;
 import com.repository.StudentRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Michał on 2016-11-28.
@@ -33,11 +35,23 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void remove(Long id) {
-        studentRepository.delete(id);
+        try {
+            studentRepository.delete(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new RuntimeException(errorMessageFor(id));
+        }
     }
 
     @Override
     public Student findOne(Long id) {
-        return studentRepository.findOne(id);
+        Student student = studentRepository.findOne(id);
+        if (Objects.isNull(student)) {
+            throw new RuntimeException(errorMessageFor(id));
+        }
+        return student;
+    }
+
+    private String errorMessageFor(Long id) {
+        return String.format("Student with id = %s does not exist.", id);
     }
 }

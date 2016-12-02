@@ -2,6 +2,7 @@ package com.controller;
 
 import com.model.Student;
 import com.service.StudentService;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -44,7 +45,7 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/edit/{id}")
-    public ModelAndView editStudent(@PathVariable Long id) {
+    public ModelAndView editStudent(@PathVariable Long id) throws NotFoundException {
         return new ModelAndView("student", modelMapWithOneStudent(id));
     }
 
@@ -59,7 +60,7 @@ public class StudentController {
         return modelMapWithStudent(new Student());
     }
 
-    private ModelMap modelMapWithOneStudent(Long studentId) {
+    private ModelMap modelMapWithOneStudent(Long studentId) throws NotFoundException {
         return modelMapWithStudent(studentService.findOne(studentId));
     }
 
