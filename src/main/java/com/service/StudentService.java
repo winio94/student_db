@@ -1,6 +1,7 @@
 package com.service;
 
 import com.model.Student;
+import javassist.NotFoundException;
 
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface StudentService {
 
     void remove(Long id);
 
-    Student findOne(Long id);
+    Student findOne(Long id) throws NotFoundException;
 }
