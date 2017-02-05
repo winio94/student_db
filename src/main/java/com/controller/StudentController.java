@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -24,24 +25,23 @@ public class StudentController {
     @Inject
     private StudentService studentService;
 
-    @PostMapping
+    @PostMapping(value = "/new")
     public ModelAndView save(@Valid Student student, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("/student", modelMapWithStudent(student));
+            return new ModelAndView("student", modelMapWithStudent(student));
         }
         studentService.save(student);
-        return new ModelAndView("show", modelMapWithAllStudents());
+        return showViewWithAllStudents();
     }
 
     @GetMapping(value = "/new")
-    public ModelAndView createStudent() {
-        return new ModelAndView("/student", modelMapWithNewStudent());
+    public ModelAndView getStudentForm() {
+        return new ModelAndView("student", modelMapWithNewStudent());
     }
 
-    @GetMapping
-    public String showStudents(HttpServletRequest request) {
-        request.setAttribute("students", getAllStudents());
-        return "show";
+    @GetMapping(value = "/all")
+    public ModelAndView showStudents(HttpServletRequest request) {
+        return new ModelAndView("show", modelMapWithAllStudents());
     }
 
     @RequestMapping(value = "/edit/{id}")
@@ -50,10 +50,15 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public String deleteStudent(@PathVariable("id") Long id, HttpServletRequest request) {
+    public ModelAndView deleteStudent(@PathVariable("id") Long id) {
         studentService.remove(id);
-        request.setAttribute("students", getAllStudents());
-        return "show";
+        return showViewWithAllStudents();
+    }
+
+    private ModelAndView showViewWithAllStudents() {
+        ModelAndView showView = new ModelAndView(new RedirectView("/student/all"));
+        showView.addObject(modelMapWithAllStudents());
+        return showView;
     }
 
     private ModelMap modelMapWithNewStudent() {

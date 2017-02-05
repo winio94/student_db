@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @EnableWebMvc
 @Configuration
-public class MvcValidationConfiguration extends WebMvcConfigurerAdapter {
+public class DefaultValidationConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
     public Validator validator() {

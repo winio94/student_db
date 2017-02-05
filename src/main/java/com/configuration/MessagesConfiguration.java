@@ -18,22 +18,25 @@ import java.util.Locale;
  */
 @EnableWebMvc
 @Configuration
-public class MessageConfiguration extends WebMvcConfigurerAdapter {
+public class MessagesConfiguration extends WebMvcConfigurerAdapter {
 
     private static final String LANG_PARAM = "lang";
+    private static final String MESSAGE_SOURCE_BASE_NAME = "messages";
+    private static final String MESSAGE_DEFAULT_ENCODING = "UTF-8";
+    private static final Locale DEFAULT_MESSAGE_LOCALE = Locale.US;
 
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("messages");
-        messageSource.setDefaultEncoding("UTF-8");
+        messageSource.setBasename(MESSAGE_SOURCE_BASE_NAME);
+        messageSource.setDefaultEncoding(MESSAGE_DEFAULT_ENCODING);
         return messageSource;
     }
 
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.US);
+        slr.setDefaultLocale(DEFAULT_MESSAGE_LOCALE);
         return slr;
     }
 

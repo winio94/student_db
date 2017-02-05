@@ -13,15 +13,19 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
+public class MvcConfiguration extends WebMvcConfigurerAdapter {
 
     private static final String RESOURCES = "resources";
+    private static final String MVC_VIEWS_PREFIX = "/WEB-INF/pages/";
+    private static final String MVC_VIEWS_SUFFIX = ".jsp";
+    private static final String SLASH = "/";
+    private static final String ANY_NAME = "**";
 
     @Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/pages/");
-        resolver.setSuffix(".jsp");
+        resolver.setPrefix(MVC_VIEWS_PREFIX);
+        resolver.setSuffix(MVC_VIEWS_SUFFIX);
         return resolver;
     }
 
@@ -32,6 +36,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/" + RESOURCES + "/**").addResourceLocations("/" + RESOURCES + "/");
+        registry.addResourceHandler(SLASH + RESOURCES + SLASH + ANY_NAME)
+                .addResourceLocations(SLASH + RESOURCES + SLASH);
     }
 }
