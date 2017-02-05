@@ -3,6 +3,7 @@ package com.service;
 import com.model.Student;
 import com.repository.StudentRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -30,7 +31,11 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void remove(Student student) {
-        studentRepository.delete(student);
+        try {
+            studentRepository.delete(student);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(errorMessageFor(student.getId()));
+        }
     }
 
     @Override
@@ -38,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
         try {
             studentRepository.delete(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new RuntimeException(errorMessageFor(id));
+            throw new ResourceNotFoundException(errorMessageFor(id));
         }
     }
 
@@ -46,7 +51,7 @@ public class StudentServiceImpl implements StudentService {
     public Student findOne(Long id) {
         Student student = studentRepository.findOne(id);
         if (Objects.isNull(student)) {
-            throw new RuntimeException(errorMessageFor(id));
+            throw new ResourceNotFoundException(errorMessageFor(id));
         }
         return student;
     }

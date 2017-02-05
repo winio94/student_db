@@ -10,7 +10,7 @@
     <title>Welcome to Spring Web MVC project</title>
 </head>
 <body>
-<form:form commandName="student" method="post" action="/student">
+<form:form modelAttribute="student" method="post" action="/student/new">
     <form:hidden path="id" id="id"/>
     <table>
         <tr>
